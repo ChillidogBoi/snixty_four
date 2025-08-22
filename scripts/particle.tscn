@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfhsjxupr1env"]
+
+[ext_resource type="Script" uid="uid://bbhl1gqxg0pp7" path="res://scripts/particle.gd" id="1_wa8eg"]
+
+[node name="Sprite3D" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15481, 0)
+gravity_scale = 0.0
+script = ExtResource("1_wa8eg")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.05

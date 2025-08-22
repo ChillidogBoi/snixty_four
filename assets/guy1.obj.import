@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dj6ym5djv0enf"
+path="res://.godot/imported/guy1.obj-6020abd6960e3bb9b737e93f14000770.mesh"
+
+[deps]
+
+files=["res://.godot/imported/guy1.obj-6020abd6960e3bb9b737e93f14000770.mesh"]
+
+source_file="res://assets/guy1.obj"
+dest_files=["res://.godot/imported/guy1.obj-6020abd6960e3bb9b737e93f14000770.mesh", "res://.godot/imported/guy1.obj-6020abd6960e3bb9b737e93f14000770.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

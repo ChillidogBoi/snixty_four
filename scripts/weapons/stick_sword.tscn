@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://8nw4w6j6oqif"]
+
+[ext_resource type="Script" uid="uid://baxcc47s42fbw" path="res://scripts/weapons/sword_dat.gd" id="1_pvssv"]
+[ext_resource type="ArrayMesh" uid="uid://bmxunrolv7v22" path="res://assets/weapons/stick_sword.obj" id="2_ggh6a"]
+[ext_resource type="ArrayMesh" uid="uid://jo31xqyq06xl" path="res://assets/particles/impact.obj" id="3_ggh6a"]
+[ext_resource type="Material" uid="uid://b5xps6lsqo23w" path="res://assets/particles/pure_white.tres" id="4_e8jui"]
+[ext_resource type="ArrayMesh" uid="uid://bj6du8s8p3ajt" path="res://assets/particles/swoop.obj" id="4_nn37j"]
+[ext_resource type="Texture2D" uid="uid://dsahg74aysrs3" path="res://assets/ui/prompt/c.png" id="6_vki62"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t3xog"]
+size = Vector3(0.1, 1.5, 0.3)
+
+[node name="sword" type="Area3D" node_paths=PackedStringArray("prompt")]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_pvssv")
+weapon_name = "stick_sword"
+base_damage = 2
+damage = 2
+knockback_trajectory = Vector3(0, 0, 4)
+prompt = NodePath("Sprite3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 4.37114e-08, 1, 1, 1.91069e-15, 4.37114e-08, 0, 1, -4.37114e-08, -0.00513503, -0.00219187, -0.880242)
+shape = SubResource("BoxShape3D_t3xog")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 4.37114e-08, -1, 1, 1.91069e-15, -4.37114e-08, 0, -1, -4.37114e-08, -0.00343102, 0.00637421, -0.163556)
+mesh = ExtResource("2_ggh6a")
+
+[node name="hit" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, -0.91775)
+top_level = true
+visible = false
+mesh = ExtResource("3_ggh6a")
+surface_material_override/0 = ExtResource("4_e8jui")
+
+[node name="swoop" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, -8.74228e-08, -4.37114e-08, -1, 2.04501e-15, -1, 4.37114e-08, -0.575239, 0, -1.29853)
+visible = false
+mesh = ExtResource("4_nn37j")
+surface_material_override/0 = ExtResource("4_e8jui")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.104125, 0.54787, -0.876805)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("6_vki62")

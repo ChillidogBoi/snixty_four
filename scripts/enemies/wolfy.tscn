@@ -1,0 +1,191 @@
+[gd_scene load_steps=18 format=3 uid="uid://f6d3rgun7q16"]
+
+[ext_resource type="PackedScene" uid="uid://dsw1vkhdmcg12" path="res://assets/enemies/wolfy.gltf" id="1_bm2lm"]
+[ext_resource type="Script" uid="uid://bh3fsbm5pv1m6" path="res://scripts/enemies/state_machine/states.gd" id="2_mjy20"]
+[ext_resource type="Script" uid="uid://chqcitak7bpyq" path="res://scripts/enemies/state_machine/search.gd" id="3_trhvi"]
+[ext_resource type="Script" uid="uid://ctdng1rfgm07e" path="res://scripts/enemies/state_machine/chase.gd" id="4_satjk"]
+[ext_resource type="Script" uid="uid://b0g5rkhhl34sf" path="res://scripts/enemies/state_machine/dead.gd" id="5_mjy20"]
+[ext_resource type="Script" uid="uid://bosq35xdomm34" path="res://scripts/enemies/claws.gd" id="6_trhvi"]
+[ext_resource type="Texture2D" uid="uid://57uigenpuiib" path="res://assets/ui/prompt/shift.png" id="7_satjk"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_bm2lm"]
+radius = 15.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_mjy20"]
+height = 14.35
+radius = 1.22949
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mjy20"]
+size = Vector3(0.602, 1.193, 0.759)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_w7dil"]
+height = 3.8
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vxpws"]
+size = Vector3(1, 0.655273, 0.632217)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7g7qw"]
+size = Vector3(0.868713, 0.323242, 0.561253)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1cra4"]
+size = Vector3(0.816593, 0.323242, 0.561253)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jhnqh"]
+size = Vector3(0.630978, 0.580261, 0.542125)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uhcr8"]
+size = Vector3(0.30505, 0.231901, 0.370184)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r6ikt"]
+radius = 0.20992
+height = 0.75
+
+[node name="Wolfy" type="CharacterBody3D"]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("wolf", "model", "cur_state", "hurt_box", "dead", "prompt")]
+script = ExtResource("2_mjy20")
+health = 15
+MAX_HEALTH = 15
+wolf = NodePath("..")
+model = NodePath("../blockbench_export")
+cur_state = NodePath("search")
+hurt_box = NodePath("../hurt_box")
+dead = NodePath("dead")
+prompt = NodePath("../Sprite3D")
+
+[node name="search" type="Node" parent="state_machine" node_paths=PackedStringArray("wolf", "view_a", "view_d", "nav", "anims", "chase", "model")]
+script = ExtResource("3_trhvi")
+wolf = NodePath("../..")
+view_a = NodePath("../../blockbench_export/ears")
+view_d = NodePath("../../blockbench_export/eyes")
+nav = NodePath("../../NavigationAgent3D")
+anims = NodePath("../../blockbench_export/AnimationPlayer")
+chase = NodePath("../chase")
+model = NodePath("../../blockbench_export")
+
+[node name="chase" type="Node" parent="state_machine" node_paths=PackedStringArray("search", "view_a", "view_d", "nav", "wolf", "claws", "model", "anims", "point")]
+script = ExtResource("4_satjk")
+search = NodePath("../search")
+speed = 5
+view_a = NodePath("../../blockbench_export/ears")
+view_d = NodePath("../../blockbench_export/eyes")
+nav = NodePath("../../NavigationAgent3D")
+wolf = NodePath("../..")
+claws = NodePath("../../blockbench_export/claws")
+model = NodePath("../../blockbench_export")
+anims = NodePath("../../blockbench_export/AnimationPlayer")
+point = NodePath("../../point")
+
+[node name="dead" type="Node" parent="state_machine" node_paths=PackedStringArray("wolf", "anims")]
+script = ExtResource("5_mjy20")
+wolf = NodePath("../..")
+anims = NodePath("../../blockbench_export/AnimationPlayer")
+
+[node name="blockbench_export" parent="." instance=ExtResource("1_bm2lm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="head" parent="blockbench_export/Node/bone" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.203125, 0)
+
+[node name="torso" parent="blockbench_export/Node/bone" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4375, 0)
+
+[node name="right_shin2" parent="blockbench_export/Node/bone/legs/right_thigh2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0.015625, -0.71875, 0)
+
+[node name="left_bicep2" parent="blockbench_export/Node/bone" index="4"]
+transform = Transform3D(-4.01339e-07, -1, 0, 0.34202, -1.37266e-07, -0.939693, 0.939693, -3.77136e-07, 0.34202, -0.6875, 0.046875, 0)
+
+[node name="left_arm2" parent="blockbench_export/Node/bone/left_bicep2" index="2"]
+transform = Transform3D(0.92388, 0, -0.382683, 0, 1, 0, 0.382683, 0, 0.92388, -0.5, 0, -0.0625)
+
+[node name="left_hand2" parent="blockbench_export/Node/bone/left_bicep2/left_arm2" index="2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.40625, 0, 0.0625)
+
+[node name="right_bicep2" parent="blockbench_export/Node/bone" index="5"]
+transform = Transform3D(-4.01339e-07, 1, 0, -0.34202, -1.37266e-07, -0.939693, -0.939693, -3.77136e-07, 0.34202, 0.6875, 0.046875, 0)
+
+[node name="right_arm2" parent="blockbench_export/Node/bone/right_bicep2" index="1"]
+transform = Transform3D(0.92388, 0, 0.382683, 0, 1, 0, -0.382683, 0, 0.92388, 0.5, 0, -0.0625)
+
+[node name="right_hand2" parent="blockbench_export/Node/bone/right_bicep2/right_arm2" index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.4375, 0, 0.0625)
+
+[node name="ears" type="Area3D" parent="blockbench_export"]
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="blockbench_export/ears"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.207108, 2.77244, -0.0312289)
+shape = SubResource("CylinderShape3D_bm2lm")
+
+[node name="eyes" type="Area3D" parent="blockbench_export"]
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="blockbench_export/eyes"]
+transform = Transform3D(1, 0, 0, 0, -0.0302419, 0.999543, 0, -0.999543, -0.0302419, -0.00892007, 3.01985, -7.82204)
+shape = SubResource("CylinderShape3D_mjy20")
+
+[node name="claws" type="Area3D" parent="blockbench_export"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("6_trhvi")
+base_damage = 2
+death_message = "You were defeated by the Walking Wolf"
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="blockbench_export/claws"]
+transform = Transform3D(1, 0, 0, 0, -0.0302419, 0.999543, 0, -0.999543, -0.0302419, 0.522524, 2.46354, -0.902238)
+shape = SubResource("BoxShape3D_mjy20")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="blockbench_export/claws"]
+transform = Transform3D(1, 0, 0, 0, -0.0302419, 0.999543, 0, -0.999543, -0.0302419, -0.537362, 2.46354, -0.902238)
+shape = SubResource("BoxShape3D_mjy20")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+shape = SubResource("CapsuleShape3D_w7dil")
+
+[node name="hurt_box" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hurt_box"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.67268, 0.0011673)
+shape = SubResource("BoxShape3D_vxpws")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="hurt_box"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00613403, 1.84651, 0.0147038)
+shape = SubResource("BoxShape3D_7g7qw")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="hurt_box"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00286293, 2.17406, 0.0147038)
+shape = SubResource("BoxShape3D_1cra4")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="hurt_box"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.10865e-05, 3.30455, -0.0199882)
+shape = SubResource("BoxShape3D_jhnqh")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="hurt_box"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000133157, 3.22306, -0.478715)
+shape = SubResource("BoxShape3D_uhcr8")
+
+[node name="left_leg" type="CollisionShape3D" parent="hurt_box"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.26902, 1.45465, -0.0283215)
+shape = SubResource("CapsuleShape3D_r6ikt")
+
+[node name="right_leg" type="CollisionShape3D" parent="hurt_box"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.281846, 1.45465, -0.0102665)
+shape = SubResource("CapsuleShape3D_r6ikt")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.56818, 0)
+visible = false
+pixel_size = 0.04
+billboard = 2
+texture_filter = 0
+texture = ExtResource("7_satjk")
+
+[node name="point" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[editable path="blockbench_export"]

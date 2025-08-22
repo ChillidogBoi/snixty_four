@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://cl57wlfbv51k"]
+
+[ext_resource type="Script" uid="uid://dmw0dxtv5q3cx" path="res://scripts/collectables/coins.gd" id="1_cf2g6"]
+[ext_resource type="ArrayMesh" uid="uid://chnxgpli3c7lf" path="res://assets/collectables/coin_bag_1.obj" id="1_l3b2p"]
+[ext_resource type="Texture2D" uid="uid://drbxfyf52wrsa" path="res://assets/collectables/coin_bag_1.png" id="2_sm26m"]
+[ext_resource type="ArrayMesh" uid="uid://kuqvhcpqsifm" path="res://assets/collectables/triple_coin.obj" id="3_4ngv5"]
+[ext_resource type="ArrayMesh" uid="uid://rqp4cikh8f0n" path="res://assets/collectables/coin.obj" id="4_cf2g6"]
+[ext_resource type="Texture2D" uid="uid://dsahg74aysrs3" path="res://assets/ui/prompt/c.png" id="6_15lje"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ngv5"]
+albedo_texture = ExtResource("2_sm26m")
+texture_filter = 0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cf2g6"]
+points = PackedVector3Array(0.0243395, -0.219615, -0.0878429, -0.0343864, -0.0429881, 0.176679, -0.0285172, -0.0488388, 0.17668, 0.166639, 0.16574, -0.0118231, -0.153488, 0.16574, -0.0734066, -0.151843, -0.154566, 0.0767758, 0.107868, -0.156228, 0.131366, -0.0426545, 0.16574, 0.166671, -0.0408299, -0.0787796, -0.177835, 0.105088, 0.16574, -0.13499, 0.108006, -0.156404, -0.130679, -0.152493, -0.155063, -0.0761774, 0.105088, 0.16574, 0.135862, 0.172558, -0.149708, 0.00043571, -0.153488, 0.16574, 0.0743142, -0.0285021, -0.219133, 0.0943864, -0.0426545, 0.16574, -0.1658, 0.0951883, -0.220045, 0.0121845, -0.16564, -0.0787882, 0.0776842, -0.0403402, -0.1548, 0.165192, -0.0875907, -0.219811, -0.0466744, -0.0405338, -0.155279, -0.164958, 0.18229, -0.0722027, -0.00537425, 0.11785, -0.0663119, -0.139935, -0.162968, -0.0780636, -0.0814446, 0.117603, -0.0662318, 0.140486, 0.166639, 0.16574, 0.0126945, -0.0693558, -0.0605095, 0.158486, -0.0873482, -0.21934, 0.0474629, 0.0653482, -0.218825, 0.0766369, 0.0654297, -0.219099, -0.0758425, 0.0830657, -0.060612, -0.152268)
+
+[node name="coin" type="Area3D" node_paths=PackedStringArray("prompt")]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_cf2g6")
+prompt = NodePath("Sprite3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+mesh = ExtResource("1_l3b2p")
+surface_material_override/0 = SubResource("StandardMaterial3D_4ngv5")
+surface_material_override/1 = SubResource("StandardMaterial3D_4ngv5")
+surface_material_override/2 = SubResource("StandardMaterial3D_4ngv5")
+surface_material_override/3 = SubResource("StandardMaterial3D_4ngv5")
+surface_material_override/4 = SubResource("StandardMaterial3D_4ngv5")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+visible = false
+mesh = ExtResource("3_4ngv5")
+surface_material_override/0 = SubResource("StandardMaterial3D_4ngv5")
+surface_material_override/1 = SubResource("StandardMaterial3D_4ngv5")
+surface_material_override/2 = SubResource("StandardMaterial3D_4ngv5")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+visible = false
+mesh = ExtResource("4_cf2g6")
+surface_material_override/0 = SubResource("StandardMaterial3D_4ngv5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_cf2g6")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -0.0477267, 0.506638, 0)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("6_15lje")

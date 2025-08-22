@@ -1,0 +1,127 @@
+[gd_scene load_steps=16 format=3 uid="uid://c5mle07y0jtea"]
+
+[ext_resource type="Script" uid="uid://d2guqcipw4oj5" path="res://scripts/npcs/sign.gd" id="1_83nc4"]
+[ext_resource type="ArrayMesh" uid="uid://bl8lhjregpovd" path="res://assets/npcs/sign/board.obj" id="1_n8oel"]
+[ext_resource type="ArrayMesh" uid="uid://dm2fhifxdt70m" path="res://assets/npcs/sign/paper.obj" id="2_atjw6"]
+[ext_resource type="Texture2D" uid="uid://pxgl72kh7qsh" path="res://assets/npcs/sign/morse.png" id="3_2nm4e"]
+[ext_resource type="Texture2D" uid="uid://dsahg74aysrs3" path="res://assets/ui/prompt/c.png" id="5_2nm4e"]
+[ext_resource type="FontVariation" uid="uid://dobbauu10io3h" path="res://assets/ui/font.tres" id="5_d5j52"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_d5j52"]
+points = PackedVector3Array(0.433203, 1.2031, -0.06443, -0.0305267, 1.19346, -0.215148, 0.446802, 0.601576, -0.138752, -0.450748, 0.601576, -0.138752, -0.437149, 1.2031, -0.06443, -0.0551452, 0.545705, -0.0332548, 0.446802, 1.21265, -0.138752, -0.450748, 1.21265, -0.138752, 0.434939, 0.6094, -0.0641716, -0.43682, 0.610762, -0.0644791, 0.0266685, 1.13616, -0.215148, -0.0495917, 1.13616, -0.043277, 0.0457335, 1.13616, -0.043277, 0.0266685, 1.19346, -0.215148, -0.0305267, 1.13616, -0.215148)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7rcu7"]
+points = PackedVector3Array(0.045769, 0.582453, -0.0623832, -0.0497151, -0.00954843, -0.0623832, -0.0497151, -0.00954843, -0.043277, -0.0497151, 0.582453, -0.0623832, 0.00756044, -0.00954843, -0.100567, 0.044154, 0.000464964, -0.044246, -0.0123846, 0.6094, -0.103175, -0.0497151, 0.582453, -0.043277, 0.044154, 0.57244, -0.044246, 0.00842833, 0.6094, -0.103175, 0.045769, -0.00954843, -0.0623832, -0.0115158, -0.00954843, -0.100567)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_tmtl5"]
+points = PackedVector3Array(0.10306, 1.1362, 0.0140228, -0.107006, -0.00954843, -0.00508146, -0.107006, -0.00954843, 0.0140228, -0.107006, 1.1362, -0.00508146, -0.0305958, 1.1362, 0.0904008, 0.0266703, -0.00954843, 0.0904008, 0.0648547, -0.00954843, -0.043277, -0.0688007, 1.1362, -0.043277, 0.0648547, 1.1362, -0.043277, 0.10306, -0.00954843, -0.00508146, -0.0688007, -0.00954843, -0.043277, -0.0305958, -0.00954843, 0.0904008, 0.0266703, 1.1362, 0.0904008, -0.107006, 1.1362, 0.0140228, 0.10306, -0.00954843, 0.0140228, 0.10306, 1.1362, -0.00508146)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_atjw6"]
+points = PackedVector3Array(0.433203, 1.2031, -0.06443, -0.0305267, 1.19346, -0.215148, 0.446802, 0.601576, -0.138752, -0.450748, 0.601576, -0.138752, -0.437149, 1.2031, -0.06443, -0.0551452, 0.545705, -0.0332548, 0.446802, 1.21265, -0.138752, -0.450748, 1.21265, -0.138752, 0.434939, 0.6094, -0.0641716, -0.43682, 0.610762, -0.0644791, 0.0266685, 1.13616, -0.215148, -0.0495917, 1.13616, -0.043277, 0.0457335, 1.13616, -0.043277, 0.0266685, 1.19346, -0.215148, -0.0305267, 1.13616, -0.215148)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2nm4e"]
+points = PackedVector3Array(0.10306, 1.1362, 0.0140228, -0.107006, -0.00954843, -0.00508146, -0.107006, -0.00954843, 0.0140228, -0.107006, 1.1362, -0.00508146, -0.0305958, 1.1362, 0.0904008, 0.0266703, -0.00954843, 0.0904008, 0.0648547, -0.00954843, -0.043277, -0.0688007, 1.1362, -0.043277, 0.0648547, 1.1362, -0.043277, 0.10306, -0.00954843, -0.00508146, -0.0688007, -0.00954843, -0.043277, -0.0305958, -0.00954843, 0.0904008, 0.0266703, 1.1362, 0.0904008, -0.107006, 1.1362, 0.0140228, 0.10306, -0.00954843, 0.0140228, 0.10306, 1.1362, -0.00508146)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d5j52"]
+albedo_texture = ExtResource("3_2nm4e")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7rcu7"]
+albedo_texture = ExtResource("3_2nm4e")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tmtl5"]
+albedo_texture = ExtResource("3_2nm4e")
+texture_filter = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7rcu7"]
+bg_color = Color(0.0835381, 0.104994, 0.139584, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="sign" type="Area3D" node_paths=PackedStringArray("label_t", "label_v", "prompt", "paper")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_83nc4")
+text = "Hello There"
+label_t = NodePath("StaticBody3D/CanvasLayer/PanelContainer/HBoxContainer/Label")
+label_v = NodePath("StaticBody3D/CanvasLayer/PanelContainer")
+prompt = NodePath("Sprite3D")
+paper = NodePath("StaticBody3D/MeshInstance3D2")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_d5j52")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_7rcu7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_tmtl5")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = ExtResource("1_n8oel")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_atjw6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_2nm4e")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = ExtResource("2_atjw6")
+surface_material_override/0 = SubResource("StandardMaterial3D_d5j52")
+surface_material_override/1 = SubResource("StandardMaterial3D_7rcu7")
+surface_material_override/2 = SubResource("StandardMaterial3D_tmtl5")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="StaticBody3D"]
+
+[node name="PanelContainer" type="PanelContainer" parent="StaticBody3D/CanvasLayer"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7rcu7")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StaticBody3D/CanvasLayer/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StaticBody3D/CanvasLayer/PanelContainer/HBoxContainer"]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_d5j52")
+theme_override_font_sizes/font_size = 12
+text = "Hello There !@#$%^&*()_+|`~"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="StaticBody3D/CanvasLayer/PanelContainer/HBoxContainer"]
+texture_filter = 1
+texture_repeat = 1
+custom_minimum_size = Vector2(12, 12)
+layout_direction = 2
+layout_mode = 2
+size_flags_vertical = 8
+texture = ExtResource("5_2nm4e")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.104125, 1.47562, 0)
+visible = false
+billboard = 1
+texture_filter = 0
+texture = ExtResource("5_2nm4e")

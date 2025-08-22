@@ -1,0 +1,333 @@
+[gd_scene load_steps=23 format=3 uid="uid://b21j47b6kder0"]
+
+[ext_resource type="Script" uid="uid://ct8ddjf57huyy" path="res://scripts/main_char/state_machine/swordless_walk.gd" id="1_fh6bd"]
+[ext_resource type="PackedScene" uid="uid://d0xtkltbkq7f6" path="res://assets/main_char.gltf" id="1_j5c27"]
+[ext_resource type="Script" uid="uid://poi560hip1ku" path="res://scripts/main_char/states.gd" id="2_okpvy"]
+[ext_resource type="Script" uid="uid://c0fe8dhbowdk4" path="res://scripts/main_char/state_machine/dead.gd" id="4_5yoc5"]
+[ext_resource type="Script" uid="uid://cd7cgn60gn127" path="res://scripts/main_char/state_machine/ledge_grab.gd" id="5_tcp5r"]
+[ext_resource type="Script" uid="uid://bx3nnq8xpatcq" path="res://scripts/main_char/state_machine/move_camera.gd" id="6_dd0dm"]
+[ext_resource type="Script" uid="uid://dyva6kcj4m5f7" path="res://scripts/main_char/state_machine/anim_full.gd" id="7_giqst"]
+[ext_resource type="Script" uid="uid://cnnryvlpqplch" path="res://scripts/main_char/state_machine/threat_walk.gd" id="8_ib2es"]
+[ext_resource type="Script" uid="uid://toqpcgxa85fx" path="res://scripts/main_char/state_machine/use_item.gd" id="9_iygv6"]
+[ext_resource type="Script" uid="uid://c2eff34jh1e6d" path="res://scripts/main_char/state_machine/target.gd" id="11_4fny4"]
+[ext_resource type="Texture2D" uid="uid://ca67t7yasnv5u" path="res://assets/ui/no_health.png" id="11_51egu"]
+[ext_resource type="Script" uid="uid://doaj61m816wqe" path="res://scripts/main_char/inventory.gd" id="11_q12as"]
+[ext_resource type="Texture2D" uid="uid://d6yxe6s06u0a" path="res://assets/ui/health.png" id="12_pfluk"]
+[ext_resource type="FontVariation" uid="uid://dobbauu10io3h" path="res://assets/ui/font.tres" id="14_diko3"]
+[ext_resource type="Texture2D" uid="uid://bvskag8t0o2y5" path="res://assets/ui/coin_sprite.png" id="15_4fny4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_82qyd"]
+height = 2.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tcp5r"]
+radius = 0.2
+height = 0.75
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dd0dm"]
+radius = 0.22
+height = 0.994376
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_giqst"]
+radius = 0.149425
+height = 0.542234
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ib2es"]
+radius = 0.2
+height = 0.725551
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iygv6"]
+radius = 0.15
+height = 0.75
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uqfwt"]
+size = Vector3(7, 1, 7)
+
+[node name="main_char" type="CharacterBody3D"]
+
+[node name="blockbench_export" parent="." instance=ExtResource("1_j5c27")]
+
+[node name="right_shin2" parent="blockbench_export/Node/bone/legs/right_thigh2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0.015625, -0.53125, 0)
+
+[node name="left_bicep2" parent="blockbench_export/Node/bone" index="3"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.46875, -0.171875, 0)
+
+[node name="left_arm2" parent="blockbench_export/Node/bone/left_bicep2" index="1"]
+transform = Transform3D(0.92388, 0, -0.382684, 0, 1, 0, 0.382684, 0, 0.92388, -0.40625, 0, -0.0625)
+
+[node name="left_hand2" parent="blockbench_export/Node/bone/left_bicep2/left_arm2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, 0)
+rotation_edit_mode = 1
+
+[node name="right_bicep2" parent="blockbench_export/Node/bone" index="4"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.46875, -0.171875, 0)
+
+[node name="right_arm2" parent="blockbench_export/Node/bone/right_bicep2" index="1"]
+transform = Transform3D(0.92388, 0, 0.382684, 0, 1, 0, -0.382684, 0, 0.92388, 0.40625, 0, -0.0625)
+
+[node name="right_hand" parent="blockbench_export/Node/bone/right_bicep2/right_arm2/right_hand2" index="0"]
+rotation_edit_mode = 1
+
+[node name="AnimationPlayer" parent="blockbench_export" index="1"]
+speed_scale = 1.175
+
+[node name="look_check" type="Node3D" parent="blockbench_export"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="cyote" type="RayCast3D" parent="blockbench_export"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 1.5)
+
+[node name="buffer" type="RayCast3D" parent="blockbench_export"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+target_position = Vector3(0, -0.75, 0)
+
+[node name="grab" type="RayCast3D" parent="blockbench_export"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.85, -0.6)
+target_position = Vector3(0, -2.75, 0)
+hit_back_faces = false
+
+[node name="eyes" type="RayCast3D" parent="blockbench_export"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 0)
+target_position = Vector3(0, 0, -0.75)
+
+[node name="left_hand" type="RayCast3D" parent="blockbench_export"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 2.6, 0)
+target_position = Vector3(0, 0, -0.75)
+hit_from_inside = true
+
+[node name="right_hand" type="RayCast3D" parent="blockbench_export"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 2.6, 0)
+target_position = Vector3(0, 0, -0.75)
+hit_from_inside = true
+
+[node name="climb_to" type="Node3D" parent="blockbench_export"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -1)
+
+[node name="cur_weap" type="Node3D" parent="blockbench_export"]
+transform = Transform3D(0.965926, -1.13133e-08, 0.258819, -0.258819, -4.22219e-08, 0.965926, 1.77636e-15, -1, -4.37114e-08, 0.15, 2.2, 0.3)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+shape = SubResource("CapsuleShape3D_82qyd")
+
+[node name="hurt_box" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="head" type="CollisionShape3D" parent="hurt_box"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.60582, 0.0268235)
+shape = SubResource("CapsuleShape3D_tcp5r")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="hurt_box"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 2.13767, -0.00138766)
+shape = SubResource("CapsuleShape3D_dd0dm")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="hurt_box"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 1.78058, 0.00794545)
+shape = SubResource("CapsuleShape3D_giqst")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="hurt_box"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 1.4441, 0.00794545)
+shape = SubResource("CapsuleShape3D_ib2es")
+
+[node name="left_leg" type="CollisionShape3D" parent="hurt_box"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.187533, 0.945785, 0.0156808)
+shape = SubResource("CapsuleShape3D_iygv6")
+
+[node name="right_leg" type="CollisionShape3D" parent="hurt_box"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.195618, 0.945785, 0.0156808)
+shape = SubResource("CapsuleShape3D_iygv6")
+
+[node name="cam_track" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 5)
+
+[node name="Camera3D" type="Camera3D" parent="cam_track"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 6)
+top_level = true
+
+[node name="RayCast3D" type="RayCast3D" parent="cam_track/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+target_position = Vector3(0, 0, -10)
+hit_from_inside = true
+
+[node name="cam_ray_left" type="RayCast3D" parent="cam_track/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+target_position = Vector3(0, 0, -10)
+hit_from_inside = true
+
+[node name="states" type="Node" parent="." node_paths=PackedStringArray("cur_state", "last_state", "camera_mover", "hurt_box", "dead", "target", "health_bar")]
+script = ExtResource("2_okpvy")
+health = 16
+MAX_HEALTH = 16
+cur_state = NodePath("swordless_walk")
+last_state = NodePath("swordless_walk")
+camera_mover = NodePath("move_camera")
+hurt_box = NodePath("../hurt_box")
+dead = NodePath("dead")
+target = NodePath("target")
+health_bar = NodePath("../UI/Control/TextureProgressBar")
+
+[node name="swordless_walk" type="Node" parent="states" node_paths=PackedStringArray("main", "model", "head", "hurt_box", "use_area", "weap", "grab", "eyes", "cyote", "buffer", "anims", "cam_track", "ledge_grab", "cam_turn", "threat", "use")]
+script = ExtResource("1_fh6bd")
+main = NodePath("../..")
+model = NodePath("../../blockbench_export")
+head = NodePath("../../blockbench_export/Node/bone/head2/hair")
+hurt_box = NodePath("../../hurt_box")
+use_area = NodePath("../../use_area")
+weap = NodePath("../../blockbench_export/cur_weap")
+grab = NodePath("../../blockbench_export/grab")
+eyes = NodePath("../../blockbench_export/eyes")
+cyote = NodePath("../../blockbench_export/cyote")
+buffer = NodePath("../../blockbench_export/buffer")
+anims = NodePath("../../blockbench_export/AnimationPlayer")
+cam_track = NodePath("../../cam_track")
+ledge_grab = NodePath("../ledge_grab")
+cam_turn = NodePath("../move_camera")
+threat = NodePath("../threat_walk")
+use = NodePath("../use_item")
+
+[node name="dead" type="Node" parent="states" node_paths=PackedStringArray("main", "model", "hurt_box", "anims", "cam", "cam_track", "cam_ray", "r_walk")]
+script = ExtResource("4_5yoc5")
+main = NodePath("../..")
+model = NodePath("../../blockbench_export")
+hurt_box = NodePath("../../hurt_box")
+anims = NodePath("../../blockbench_export/AnimationPlayer")
+cam = NodePath("../../cam_track/Camera3D")
+cam_track = NodePath("../../cam_track")
+cam_ray = NodePath("../../cam_track/Camera3D/RayCast3D")
+r_walk = NodePath("../swordless_walk")
+
+[node name="ledge_grab" type="Node" parent="states" node_paths=PackedStringArray("main", "model", "hurt_box", "grab", "eyes", "right_hand", "left_hand", "climb_to", "collider", "anims", "r_walk", "anim_full")]
+script = ExtResource("5_tcp5r")
+main = NodePath("../..")
+model = NodePath("../../blockbench_export")
+hurt_box = NodePath("../../hurt_box")
+grab = NodePath("../../blockbench_export/grab")
+eyes = NodePath("../../blockbench_export/eyes")
+right_hand = NodePath("../../blockbench_export/right_hand")
+left_hand = NodePath("../../blockbench_export/left_hand")
+climb_to = NodePath("../../blockbench_export/climb_to")
+collider = NodePath("../../CollisionShape3D")
+anims = NodePath("../../blockbench_export/AnimationPlayer")
+r_walk = NodePath("../swordless_walk")
+anim_full = NodePath("../anim_full")
+
+[node name="move_camera" type="Node" parent="states" node_paths=PackedStringArray("main", "model", "head", "cam", "cam_track", "cam_ray", "cam_ray_left")]
+script = ExtResource("6_dd0dm")
+main = NodePath("../..")
+model = NodePath("../../blockbench_export")
+head = NodePath("../../blockbench_export/Node/bone/head2/head")
+cam = NodePath("../../cam_track/Camera3D")
+cam_track = NodePath("../../cam_track")
+cam_ray = NodePath("../../cam_track/Camera3D/RayCast3D")
+cam_ray_left = NodePath("../../cam_track/Camera3D/cam_ray_left")
+
+[node name="anim_full" type="Node" parent="states" node_paths=PackedStringArray("r_walk", "main", "model", "hurt_box", "anims", "clim_to")]
+script = ExtResource("7_giqst")
+r_walk = NodePath("../swordless_walk")
+main = NodePath("../..")
+model = NodePath("../../blockbench_export")
+hurt_box = NodePath("../../hurt_box")
+anims = NodePath("../../blockbench_export/AnimationPlayer")
+clim_to = NodePath("../../blockbench_export/climb_to")
+
+[node name="threat_walk" type="Node" parent="states" node_paths=PackedStringArray("main", "model", "head", "hurt_box", "use_area", "weap", "hand", "cyote", "buffer", "anims", "cam_track", "r_walk", "use", "cam_turn")]
+script = ExtResource("8_ib2es")
+main = NodePath("../..")
+model = NodePath("../../blockbench_export")
+head = NodePath("../../blockbench_export/Node/bone/head2/head")
+hurt_box = NodePath("../../hurt_box")
+use_area = NodePath("../../use_area")
+weap = NodePath("../../blockbench_export/cur_weap")
+hand = NodePath("../../blockbench_export/Node/bone/right_bicep2/right_arm2/right_hand2/cuboid2")
+cyote = NodePath("../../blockbench_export/cyote")
+buffer = NodePath("../../blockbench_export/buffer")
+anims = NodePath("../../blockbench_export/AnimationPlayer")
+cam_track = NodePath("../../cam_track")
+r_walk = NodePath("../swordless_walk")
+use = NodePath("../use_item")
+cam_turn = NodePath("../move_camera")
+
+[node name="use_item" type="Node" parent="states" node_paths=PackedStringArray("use", "weap_hold", "r_walk", "t_walk", "inv", "coin_count")]
+script = ExtResource("9_iygv6")
+use = NodePath("../../use_area")
+weap_hold = NodePath("../../blockbench_export/cur_weap")
+r_walk = NodePath("../swordless_walk")
+t_walk = NodePath("../threat_walk")
+inv = NodePath("../../UI/Inventory")
+coin_count = NodePath("../../UI/Control/HBoxContainer/Label")
+
+[node name="target" type="Node" parent="states" node_paths=PackedStringArray("cam", "cam_track", "cam_ray", "cam_ray_left", "main", "model", "head", "hurt_box", "use_area", "weap", "hand", "cyote", "buffer", "anims", "r_walk", "use", "cam_turn")]
+script = ExtResource("11_4fny4")
+cam = NodePath("../../cam_track/Camera3D")
+cam_track = NodePath("../../cam_track")
+cam_ray = NodePath("../../cam_track/Camera3D/RayCast3D")
+cam_ray_left = NodePath("../../cam_track/Camera3D/cam_ray_left")
+main = NodePath("../..")
+model = NodePath("../../blockbench_export")
+head = NodePath("../../blockbench_export/Node/bone/head2/head")
+hurt_box = NodePath("../../hurt_box")
+use_area = NodePath("../../use_area")
+weap = NodePath("../../blockbench_export/cur_weap")
+hand = NodePath("../../blockbench_export/Node/bone/right_bicep2/right_arm2/right_hand2/cuboid2")
+cyote = NodePath("../../blockbench_export/cyote")
+buffer = NodePath("../../blockbench_export/buffer")
+anims = NodePath("../../blockbench_export/AnimationPlayer")
+r_walk = NodePath("../swordless_walk")
+use = NodePath("../use_item")
+cam_turn = NodePath("../move_camera")
+
+[node name="use_area" type="Area3D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="use_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_uqfwt")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Inventory" type="Node" parent="UI"]
+script = ExtResource("11_q12as")
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/Control"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 147.0
+offset_bottom = 44.0
+value = 100.0
+texture_under = ExtResource("11_51egu")
+texture_progress = ExtResource("12_pfluk")
+texture_progress_offset = Vector2(4, 3)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -50.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 21.0
+grow_horizontal = 0
+
+[node name="Label" type="Label" parent="UI/Control/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("14_diko3")
+text = "0 x"
+
+[node name="TextureRect" type="TextureRect" parent="UI/Control/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("15_4fny4")
+expand_mode = 3
+
+[editable path="blockbench_export"]
